@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="pull-left">
+            <h1>Idea Factory</h1>
+          </div>
+          <div class="pull-right">
+            <% if user_signed_in? %>
+              <br>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newIdeaModal">
+                New Idea
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <% @ideas.each do |idea| %>
+        <div class="idea-title">
+          <h3><%= idea.title %></h3>
+          <p class="idea-body"><%= idea.description %></p>
+        </div>
+        <br>
+        <p>By: <%= idea.user.first_name %>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="pull-left">
+                <%= link_to 'View', idea_path(idea), class: "btn btn-primary" %>
+                <%= link_to 'Like', idea_update_likes_path(idea.id), class: "btn btn-primary" %>
+              </p>
+            </div>
+            <div class="pull-right">
+              Members: XX | Likes: <%= idea.likes %>
+            </div>
+
+          </div>
+
+        </div>
+        <hr>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<% if user_signed_in? %>
+  <div class="modal fade" id="newIdeaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">New Idea</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= form_for @idea, url: ideas_path do |f| %>
+            <div class="form-group">
+              <%= f.label :title %>
+              <%= f.text_field :title, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: 'form-control', rows: '8' %>
+            </div>
+            <%= f.submit 'Submit Idea', class: 'btn btn-primary' %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

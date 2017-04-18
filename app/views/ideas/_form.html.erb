@@ -1,0 +1,13 @@
+<%= @idea.errors.full_messages.join(', ') %>
+
+<%= form_for @idea do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control', rows: '8' %>
+  </div>
+  <%= f.submit 'Submit Idea', class: 'btn btn-primary' %>
+<% end %>
