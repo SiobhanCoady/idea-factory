@@ -29,7 +29,9 @@
           <div class="row">
             <div class="pull-left">
                 <%= link_to 'View', idea_path(idea), class: "btn btn-primary" %>
-                <%= link_to 'Like', idea_update_likes_path(idea.id), class: "btn btn-primary" %>
+                <% if !(can? :edit, idea) %>
+                  <%= link_to 'Like', idea_update_likes_path(idea.id), class: "btn btn-primary" %>
+                <% end %>
               </p>
             </div>
             <div class="pull-right">
